@@ -38,6 +38,10 @@ def go(args):
     idx = df['price'].between(args.min_price, args.max_price)
     df = df[idx].copy()
     
+    logger.info("Filtering latitudes and longitudes")
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+    
     logger.info("Saving to .csv file")
     df.to_csv("clean_sample.csv", index=False)
     
@@ -63,28 +67,28 @@ if __name__ == "__main__":
     parser.add_argument(
         "--input_artifact", 
         type=str,
-        # help=## INSERT DESCRIPTION HERE,
+        help="Input CSV file to be cleaned",
         required=True
     )
 
     parser.add_argument(
         "--output_artifact", 
         type=str,
-        # help=## INSERT DESCRIPTION HERE,
+        help="Output CSV file with clean data",
         required=True
     )
 
     parser.add_argument(
         "--output_type", 
         type=str,
-        # help=## INSERT DESCRIPTION HERE,
+        help="type of output artifact",
         required=True
     )
 
     parser.add_argument(
         "--output_description", 
         type=str,
-        # help=## INSERT DESCRIPTION HERE,
+        help="description of output artifact",
         required=True
     )
 
